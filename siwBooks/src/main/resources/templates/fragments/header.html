@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<body>
+	<header th:fragment="header" class="headerNavbar">
+
+		<ul class="menu">
+			<li><a class="navigationButton" th:href="@{'/'}"><i class="fas fa-home"></i> Home</a></li>
+			<li><a class="navigationButton" th:href="@{'/registered/bestRating'}"><i class="fas fa-star"></i> Libri più apprezzati</a></li>
+			<li><a class="navigationButton" th:href="@{'/registered/search'}"><i class="fas fa-search"></i> Ricerca</a></li>
+			<li class="dropdown">
+				<a class="navigationButton" id="menu" th:href="@{'/personalArea'}"><i class="fas fa-user"></i> Area Personale</a>
+				<ul class="dropdown-menu">
+					<li sec:authorize="isAnonymous()"><a th:href="@{'/login'}"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+					<li sec:authorize="isAnonymous()"><a th:href="@{'/register'}"><i class="fas fa-user-plus"></i> Register</a></li>
+					<li sec:authorize="hasAnyAuthority('ADMIN','REGISTERED')"><a th:href="@{'/logout'}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+				</ul>
+			</li>
+		</ul>
+
+	</header>
+</body>
+
+</html>

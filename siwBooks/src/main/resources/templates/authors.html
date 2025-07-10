@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Autori</title>
+</head>
+<body>
+    <h1>Lista degli Autori</h1>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Cognome</th>
+                <th>Data di Nascita</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="autore : ${autori}">
+                <td th:text="${autore.nome}">Nome</td>
+                <td th:text="${autore.cognome}">Cognome</td>
+                <td th:text="${#dates.format(autore.dataDiNascita, 'dd/MM/yyyy')}">Data</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br>
+    <a th:href="@{/}">Torna alla Home</a>
+</body>
+</html>

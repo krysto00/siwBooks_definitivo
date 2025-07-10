@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Home</title>
+    <link rel="icon" th:href="@{/library.ico?v=1}">
+</head>
+
+<body>
+    <!-- HEADER semplificato -->
+    <header>
+        <h1>Benvenuto nella nostra libreria online</h1>
+    </header>
+
+    <!-- SECTION -->
+    <section>
+        <h2>Ogni libro è un viaggio, ogni autore una voce che ci guida.</h2>
+        <p>Scopri autori, generi e letture consigliate.</p>
+        <div>
+            <a th:href="@{'/book'}">La Nostra Collezione</a> |
+            <a th:href="@{'/author'}">I Nostri Autori</a>
+        </div>
+    </section>
+
+    <!-- FOOTER semplificato -->
+    <footer>
+        <p>&copy; 2025 Biblioteca Virtuale</p>
+    </footer>
+</body>
+
+</html>
