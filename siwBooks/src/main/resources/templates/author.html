@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <title>Autore</title>
+    <link rel="icon" th:href="@{/library.ico?v=1}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- HEADER -->
+    <div th:insert="~{fragments/header :: header}"></div>
+
+    <section th:if="${author}">
+        <div>
+            <img th:if="${photo}" th:src="@{'/images/' + ${photo.id}}" alt="Foto autore" />
+        </div>
+
+        <div>
+            <h1 th:text="${author.name + ' ' + author.surname}"></h1>
+            <p th:text="'Data di nascita: ' + ${#temporals.format(author.dateOfBirth, 'dd MMMM yyyy')}"></p>
+
+            <p th:if="${author.dateOfDeath != null}"
+               th:text="'Data di morte: ' + ${#temporals.format(author.dateOfDeath, 'dd MMMM yyyy')}"></p>
+
+            <p th:if="${author.dateOfDeath == null}">Ancora in vita</p>
+
+            <p th:text="'Nazionalità: ' + ${author.nationality}"></p>
+
+            <h2>Libri scritti</h2>
+            <ul>
+                <li th:each="book : ${author.books}">
+                    <a th:href="@{'/book/' + ${book.id} + '?from=/author/' + ${author.id}}">
+                        <i class="fa-solid fa-book"></i>
+                        <span th:text="${book.title}"></span>
+                    </a>
+                </li>
+            </ul>
+
+            <a th:href="${backUrl}">
+                <i class="fa-solid fa-arrow-left"></i>
+                <span th:text="${backUrl == '/author' ? 'Torna agli autori' : 'Torna indietro'}"></span>
+            </a>
+
+            <a sec:authorize="hasAuthority('ADMIN')" th:href="@{'/admin/edit/author/' + ${author.id}}">
+                <i class="fa-solid fa-pen"></i> Modifica informazioni
+            </a>
+        </div>
+    </section>
+
+    <div th:unless="${author}">
+        <p>Autore non trovato</p>
+    </div>
+
+    <!-- FOOTER -->
+    <div th:insert="~{fragments/footer :: footer}"></div>
+</body>
+
+</html>

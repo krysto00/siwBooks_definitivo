@@ -1,3 +1,12 @@
+-- Pulisci i dati esistenti
+DELETE FROM review;
+DELETE FROM book_authors;
+DELETE FROM credentials;
+DELETE FROM users;
+DELETE FROM book;
+DELETE FROM author;
+
+
 --=======================================================================================================
 -- =========================== Books
 --=======================================================================================================
