@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Modifica Autore</title>
+	<link rel="icon" th:href="@{/library.ico?v=1}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+	<div th:insert="~{fragments/header :: header}"></div>
+
+	<section>
+		<div th:if="${author}">
+			<form th:action="@{'/admin/editAuthor/' + ${author.id}}" method="POST" enctype="multipart/form-data" th:object="${author}">
+
+				<div th:if="${#fields.hasAnyErrors()}">
+					<h4>Errori di validazione:</h4>
+					<ul>
+						<li th:each="error : ${#fields.allErrors()}" th:text="${error}"></li>
+					</ul>
+				</div>
+
+				<label>Nome:</label>
+				<input type="text" th:field="*{name}" placeholder="Inserisci il nome" />
+				<span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+
+				<label>Cognome:</label>
+				<input type="text" th:field="*{surname}" placeholder="Inserisci il cognome" />
+				<span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></span>
+
+				<label>Nazionalità:</label>
+				<input type="text" th:field="*{nationality}" placeholder="Inserisci la nazionalità" />
+				<span th:if="${#fields.hasErrors('nationality')}" th:errors="*{nationality}"></span>
+
+				<label>Data di nascita:</label>
+				<input type="date" th:field="*{dateOfBirth}" />
+				<span th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}"></span>
+
+				<label>Data di morte:</label>
+				<input type="date" th:field="*{dateOfDeath}" />
+				<span th:if="${#fields.hasErrors('dateOfDeath')}" th:errors="*{dateOfDeath}"></span>
+
+				<!-- Libri da rimuovere -->
+				<label>Libri da rimuovere:</label>
+				<div th:each="book : ${authorBooks}">
+					<input type="checkbox" name="unSelectedBooks" th:value="${book.id}" th:id="'book_' + ${book.id}"
+						th:checked="${unSelectedBooksIds != null and #lists.contains(unSelectedBooksIds, book.id)}" />
+					<label th:for="'book_' + ${book.id}" th:text="${book.title}"></label>
+				</div>
+
+				<!-- Libri da aggiungere -->
+				<label>Libri da aggiungere:</label>
+				<div th:each="book : ${otherBooks}">
+					<input type="checkbox" name="selectedBooks" th:value="${book.id}" th:id="'book_' + ${book.id}"
+						th:checked="${selectedBookIds != null and #lists.contains(selectedBookIds, book.id)}" />
+					<label th:for="'book_' + ${book.id}" th:text="${book.title}"></label>
+				</div>
+
+				<!-- Foto -->
+				<label>Foto attuale:</label>
+				<img th:if="${photo}" th:src="@{'/images/' + ${photo.id}}" alt="Foto autore" />
+
+				<label>Nuova foto (opzionale):</label>
+				<input type="file" name="photoFile" id="photoFile" accept="image/*" />
+				<span id="fileName">Nessun file selezionato</span>
+
+				<button type="submit">
+					<i class="fa-solid fa-floppy-disk"></i> Salva Autore
+				</button>
+			</form>
+		</div>
+
+		<div th:unless="${author}">
+			<p>Autore non trovato</p>
+		</div>
+	</section>
+
+	<div th:insert="~{fragments/footer :: footer}"></div>
+
+	<script>
+		document.getElementById('photoFile').addEventListener('change', function (e) {
+			document.getElementById('fileName').textContent = e.target.files[0] ? e.target.files[0].name : 'Nessun file selezionato';
+		});
+	</script>
+</body>
+
+</html>

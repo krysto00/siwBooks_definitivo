@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Aggiungi Autore</title>
+	<link rel="icon" th:href="@{/library.ico?v=1}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+	<div th:insert="~{fragments/header :: header}"></div>
+
+	<section>
+		<h2><i class="fa-solid fa-user-pen"></i> Aggiungi un nuovo autore</h2>
+
+		<div th:if="${errorMessage}">
+			<strong th:text="${errorMessage}"></strong>
+		</div>
+
+		<form th:action="@{/admin/addAuthor}" method="POST" enctype="multipart/form-data" th:object="${newAuthor}">
+			
+			<label>Nome:</label>
+			<input type="text" th:field="*{name}" placeholder="Inserisci il nome"/>
+			<span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+			
+			<label>Cognome:</label>
+			<input type="text" th:field="*{surname}" placeholder="Inserisci il cognome"/>
+			<span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></span>
+
+			<label>Nazionalità:</label>
+			<input type="text" th:field="*{nationality}" placeholder="Inserisci la nazionalità"/>
+			<span th:if="${#fields.hasErrors('nationality')}" th:errors="*{nationality}"></span>
+
+			<label>Data di nascita:</label>
+			<input type="date" th:field="*{dateOfBirth}" />
+			<span th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}"></span>
+
+			<label>Data di morte:</label>
+			<input type="date" th:field="*{dateOfDeath}" />
+			<span th:if="${#fields.hasErrors('dateOfDeath')}" th:errors="*{dateOfDeath}"></span>
+
+			<label>Seleziona Libri:</label>
+			<div th:each="book : ${books}">
+				<input type="checkbox" name="selectedBooks" th:value="${book.id}" th:id="'book_' + ${book.id}"
+					th:checked="${selectedBookIds != null and #lists.contains(selectedBookIds, book.id)}"/>
+				<label th:for="'book_' + ${book.id}" th:text="${book.title}"></label>
+			</div>
+
+			<label>Foto Autore:</label>
+			<input type="file" name="photoFile" id="photoFile" accept="image/*" />
+			<span id="fileName">Nessun file selezionato</span>
+
+			<button type="submit">
+				<i class="fa-solid fa-floppy-disk"></i> Salva Autore
+			</button>
+		</form>
+	</section>
+
+	<div th:insert="~{fragments/footer :: footer}"></div>
+
+	<script>
+		document.getElementById('photoFile').addEventListener('change', function (e) {
+			document.getElementById('fileName').textContent = e.target.files[0] ? e.target.files[0].name : 'Nessun file selezionato';
+		});
+	</script>
+</body>
+
+</html>

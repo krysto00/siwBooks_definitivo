@@ -6,6 +6,7 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import it.uniroma3.siw.model.Author;
 import it.uniroma3.siw.model.Book;
@@ -13,10 +14,10 @@ import it.uniroma3.siw.repository.AuthorRepository;
 import jakarta.validation.Valid;
 
 @Service
+@Transactional
 public class AuthorService {
 	
 	@Autowired private AuthorRepository authorRepository;
-
 	public Iterable<Author> getAllAuthors() {
 		//return this.authorRepository.findAll();
 		return this.authorRepository.findAllByOrderBySurnameAscNameAsc();

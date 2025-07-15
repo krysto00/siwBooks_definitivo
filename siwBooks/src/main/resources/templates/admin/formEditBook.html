@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Modifica Libro</title>
+	<link rel="icon" th:href="@{/library.ico?v=1}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+	<div th:insert="~{fragments/header :: header}"></div>
+
+	<section>
+		<div th:if="${book}">
+			<form th:action="@{'/admin/editBook/' + ${book.id}}" method="POST" enctype="multipart/form-data" th:object="${book}">
+
+				<div th:if="${#fields.hasAnyErrors()}">
+					<h4>Errori di validazione:</h4>
+					<ul>
+						<li th:each="error : ${#fields.allErrors()}" th:text="${error}"></li>
+					</ul>
+				</div>
+
+				<label>Titolo:</label>
+				<input type="text" th:field="*{title}" placeholder="Inserisci il titolo" />
+				<span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+
+				<label>Anno di pubblicazione:</label>
+				<input type="number" th:field="*{yearOfPublication}" placeholder="YYYY" />
+				<span th:if="${#fields.hasErrors('yearOfPublication')}" th:errors="*{yearOfPublication}"></span>
+
+				<label>Autori da rimuovere:</label>
+				<div th:each="author : ${bookAuthors}">
+					<input type="checkbox" name="unSelectedAuthors" th:value="${author.id}" th:id="'author_' + ${author.id}"
+						th:checked="${unSelectedAuthorIds != null and #lists.contains(unSelectedAuthorIds, author.id)}" />
+					<label th:for="'author_' + ${author.id}" th:text="${author.name + ' ' + author.surname}"></label>
+				</div>
+
+				<label>Autori da aggiungere:</label>
+				<div th:each="author : ${otherAuthors}">
+					<input type="checkbox" name="selectedAuthors" th:value="${author.id}" th:id="'author_' + ${author.id}"
+						th:checked="${selectedAuthorIds != null and #lists.contains(selectedAuthorIds, author.id)}" />
+					<label th:for="'author_' + ${author.id}" th:text="${author.name + ' ' + author.surname}"></label>
+				</div>
+
+				<label>Copertina attuale:</label>
+				<img th:if="${cover}" th:src="@{'/images/' + ${cover.id}}" alt="Copertina libro" />
+
+				<label>Nuova copertina:</label>
+				<input type="file" name="coverFile" id="coverFile" accept="image/*" />
+				<span id="fileName">Nessun file selezionato</span>
+
+				<button type="submit">
+					<i class="fa-solid fa-floppy-disk"></i> Salva Libro
+				</button>
+			</form>
+		</div>
+
+		<div th:unless="${book}">
+			<p>Libro non trovato</p>
+		</div>
+	</section>
+
+	<div th:insert="~{fragments/footer :: footer}"></div>
+
+	<script>
+		document.getElementById('coverFile').addEventListener('change', function (e) {
+			document.getElementById('fileName').textContent = e.target.files[0] ? e.target.files[0].name : 'Nessun file selezionato';
+		});
+	</script>
+</body>
+
+</html>

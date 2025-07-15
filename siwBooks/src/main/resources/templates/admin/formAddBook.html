@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Aggiungi Libro</title>
+	<link rel="icon" th:href="@{/library.ico?v=1}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+	<div th:insert="~{fragments/header :: header}"></div>
+
+	<section>
+		<h2><i class="fa-solid fa-book-medical"></i> Aggiungi un nuovo libro</h2>
+
+		<!-- Messaggio di errore generale -->
+		<div th:if="${errorMessage}">
+			<strong th:text="${errorMessage}"></strong>
+		</div>
+
+		<form th:action="@{/admin/addBook}" method="POST" enctype="multipart/form-data" th:object="${newBook}">
+			
+			<label>Titolo:</label>
+			<input type="text" th:field="*{title}" placeholder="Inserisci il titolo" />
+			<span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+
+			<label>Anno di pubblicazione:</label>
+			<input type="number" th:field="*{yearOfPublication}" placeholder="YYYY" />
+			<span th:if="${#fields.hasErrors('yearOfPublication')}" th:errors="*{yearOfPublication}"></span>
+
+			<label>Seleziona Autori:</label>
+			<div th:each="author : ${authors}">
+				<input type="checkbox" name="selectedAuthors" th:value="${author.id}"
+					th:id="'author_' + ${author.id}"
+					th:checked="${selectedAuthorIds != null and #lists.contains(selectedAuthorIds, author.id)}"/>
+				<label th:for="'author_' + ${author.id}" th:text="${author.name + ' ' + author.surname}"></label>
+			</div>
+
+			<label>Copertina:</label>
+			<input type="file" name="coverFile" id="coverFile" accept="image/*" />
+			<span id="fileName">Nessun file selezionato</span>
+
+			<button type="submit">
+				<i class="fa-solid fa-floppy-disk"></i> Salva Libro
+			</button>
+		</form>
+	</section>
+
+	<div th:insert="~{fragments/footer :: footer}"></div>
+
+	<script>
+		document.getElementById('coverFile').addEventListener('change', function (e) {
+			document.getElementById('fileName').textContent = e.target.files[0] ? e.target.files[0].name : 'Nessun file selezionato';
+		});
+	</script>
+</body>
+
+</html>

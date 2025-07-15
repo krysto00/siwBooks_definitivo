@@ -136,8 +136,8 @@ INSERT INTO book_authors (authors_id, books_id) VALUES (12, 31); -- Harry Potter
 --=======================================================================================================
 -- =========================== User
 --=======================================================================================================
-INSERT INTO users(name, surname, email) VALUES('Francesco', 'Di Gianvincenzo', 'fra.digianvincenzo@stud.uniroma3.it');
-INSERT INTO users(name, surname, email) VALUES('Admin', 'Admin', 'admin@gmail');
+INSERT INTO users(name, surname, email) VALUES('Krystian', 'Piwowarczyk', 'kry.piwowarczyk@stud.uniroma3.it');
+INSERT INTO users(name, surname, email) VALUES('Admin', 'Admin', 'admin@gmail.com');
 
 INSERT INTO users(name, surname, email) VALUES('Mario', 'Rossi', 'mario.rossi@example.com');
 INSERT INTO users(name, surname, email) VALUES('Luca', 'Bianchi', 'luca.bianchi@example.com');
@@ -153,7 +153,7 @@ INSERT INTO users(name, surname, email) VALUES('Davide', 'Colombo', 'davide.colo
 --=======================================================================================================
 -- =========================== Credentials
 --=======================================================================================================
-INSERT INTO credentials(password, role, username, user_id) VALUES('$2a$10$XVwcSEnz6Kupbnx2U.Di9OjVK.Or0xFeZnx/sS0heSCvE3OSUrUp2', 'REGISTERED', 'digia', 1); --password: password
+INSERT INTO credentials(password, role, username, user_id) VALUES('$2a$10$XVwcSEnz6Kupbnx2U.Di9OjVK.Or0xFeZnx/sS0heSCvE3OSUrUp2', 'REGISTERED', 'krys', 1); --password: password
 INSERT INTO credentials(password, role, username, user_id) VALUES('$2a$10$7P5cx4thx8/wWnGKfMyTOOSC3.g/gfzgF5SJ8PsXPb/jH17M..ixu', 'ADMIN','admin', 2); --password: admin
 
 INSERT INTO credentials(password, role, username, user_id) VALUES('$2a$10$XVwcSEnz6Kupbnx2U.Di9OjVK.Or0xFeZnx/sS0heSCvE3OSUrUp2', 'REGISTERED', 'mario', 3);

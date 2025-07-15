@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+	<title>Ricerca</title>
+	<link rel="icon" th:href="@{/library.ico?v=1}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+	<!-- HEADER -->
+	<div th:insert="~{fragments/header :: header}"></div>
+
+	<section>
+		<h1><i class="fas fa-search"></i> Ricerca</h1>
+
+		<form action="/registered/search" method="GET">
+
+			<input type="text" name="query" placeholder="Cerca autori o libri" required />
+
+			<button type="submit">
+				<i class="fas fa-search"></i> Cerca
+			</button>
+
+			<!-- Checkbox -->
+			<p>
+				<label><input type="checkbox" name="searchInAuthors" /> Autori</label>
+				<label><input type="checkbox" name="searchInBooks" /> Libri</label>
+			</p>
+
+			<!-- Rating -->
+			<p>Filtra per valutazione:</p>
+			<p>
+				<label><input type="radio" name="rating" value="5" /> ★★★★★</label><br>
+				<label><input type="radio" name="rating" value="4" /> ★★★★</label><br>
+				<label><input type="radio" name="rating" value="3" /> ★★★</label><br>
+				<label><input type="radio" name="rating" value="2" /> ★★</label><br>
+				<label><input type="radio" name="rating" value="1" /> ★</label>
+			</p>
+		</form>
+
+		<hr>
+
+		<!-- Risultati Autori -->
+		<div th:if="${authors != null}">
+			<h2><i class="fa-solid fa-user-pen"></i> Autori</h2>
+			<ul>
+				<li th:each="author : ${authors}">
+					<a th:href="@{'/author/' + ${author.id}} + '?from=/registered/search'">
+						<span th:text="${author.name} + ' ' + ${author.surname}">Nome Cognome</span>
+						<span th:text="' - ' + ${author.nationality}">Nazionalità</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+
+		<!-- Risultati Libri -->
+		<div th:if="${books != null}">
+			<h2><i class="fa-solid fa-book"></i> Libri</h2>
+			<ul>
+				<li th:each="book : ${books}">
+					<a th:href="@{'/book/' + ${book.id}} + '?from=/registered/search'">
+						<span th:text="${book.title}">Titolo</span>
+						<span th:text="' - ' + ${book.yearOfPublication}">Anno</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</section>
+
+	<!-- FOOTER -->
+	<div th:insert="~{fragments/footer :: footer}"></div>
+</body>
+
+</html>

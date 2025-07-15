@@ -1,31 +1,39 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <title>Home</title>
     <link rel="icon" th:href="@{/library.ico?v=1}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
 <body>
-    <!-- HEADER semplificato -->
-    <header>
-        <h1>Benvenuto nella nostra libreria online</h1>
-    </header>
 
-    <!-- SECTION -->
+    <!-- HEADER -->
+    <div th:insert="~{fragments/header :: header}"></div>
+
     <section>
-        <h2>Ogni libro è un viaggio, ogni autore una voce che ci guida.</h2>
+        <h1>Ogni libro è un viaggio, ogni autore una voce che ci guida.</h1>
         <p>Scopri autori, generi e letture consigliate.</p>
+
         <div>
-            <a th:href="@{'/book'}">La Nostra Collezione</a> |
-            <a th:href="@{'/author'}">I Nostri Autori</a>
+            <a th:href="@{/book}">
+                <i class="fa-solid fa-book-open"></i>
+                La Nostra Collezione
+            </a>
+        </div>
+
+        <div>
+            <a th:href="@{/author}">
+                <i class="fa-solid fa-pen-nib"></i>
+                I Nostri Autori
+            </a>
         </div>
     </section>
 
-    <!-- FOOTER semplificato -->
-    <footer>
-        <p>&copy; 2025 Biblioteca Virtuale</p>
-    </footer>
+    <!-- FOOTER -->
+    <div th:insert="~{fragments/footer :: footer}"></div>
+
 </body>
 
 </html>

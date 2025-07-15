@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Login Utente</title>
+    <link rel="icon" th:href="@{/library.ico?v=1}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <div th:insert="~{fragments/header :: header}"></div>
+
+    <section>
+        <h1>Login</h1>
+
+        <form th:action="@{/login}" method="POST">
+            <div>
+                <label for="username">Username</label>
+                <input id="username" name="username" type="text" placeholder="username" required />
+            </div>
+
+            <div>
+                <label for="password">Password</label>
+                <input id="password" name="password" type="password" placeholder="password" required />
+            </div>
+
+            <div th:if="${param.error}">
+                <span>Username o password errati</span>
+            </div>
+
+            <div>
+                <button type="submit">Login</button>
+            </div>
+        </form>
+
+        <p>Non hai un account? <a th:href="@{/register}">Registrati</a></p>
+    </section>
+
+    <!-- FOOTER -->
+    <div th:insert="~{fragments/footer :: footer}"></div>
+</body>
+
+</html>

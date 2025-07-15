@@ -34,8 +34,9 @@
                 <li th:each="author : ${authors}">
                     <div class="author-card">
                         <a th:href="@{'/author/' + ${author.id} + '?from=/author'}" class="author-link">
-                            <img th:if="${author.photo}" th:src="@{'/images/' + ${author.photo.id}}"
-                                 alt="Immagine autore" class="author-photo" />
+							<img th:if="${author.photo}" th:src="@{'/images/' + ${author.photo.id}}"
+							     alt="author-photo" width="100" />
+
                             <div class="author-details">
                                 <div class="author-name">
                                     <div class="author-surname" th:text="${author.surname}"></div>

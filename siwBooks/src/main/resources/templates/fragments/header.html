@@ -1,23 +1,71 @@
 <!DOCTYPE html>
 <html>
 <body>
-	<header th:fragment="header" class="headerNavbar">
+  <header th:fragment="header">
+    <nav>
+      <ul style="list-style:none; padding:0; margin:0; display:flex; gap:20px; align-items:center;">
+        <li>
+          <a class="navigationButton" th:href="@{'/'}">
+            <i class="fas fa-home"></i> Home
+          </a>
+        </li>
+        <li>
+          <a class="navigationButton" th:href="@{'/registered/bestRating'}">
+            <i class="fas fa-star"></i> Libri più apprezzati
+          </a>
+        </li>
+        <li>
+          <a class="navigationButton" th:href="@{'/registered/search'}">
+            <i class="fas fa-search"></i> Ricerca
+          </a>
+        </li>
+        <li class="dropdown" style="position:relative; display:flex; align-items:center; gap:5px;">
+          <!-- Link normale cliccabile -->
+          <a class="navigationButton" th:href="@{'/personalArea'}" style="cursor:pointer; user-select:none;">
+            <i class="fas fa-user"></i> Area Personale
+          </a>
+          <!-- Bottone freccetta per aprire dropdown -->
+          <button id="dropdownToggle" style="background:none; border:none; cursor:pointer; padding:0; margin-left:5px;">
+            <i class="fas fa-caret-down"></i>
+          </button>
+          <ul id="dropdownMenu" class="dropdown-menu" style="position:absolute; top:100%; left:0; background:#fff; border:1px solid #ccc; padding:5px 0; display:none; min-width:150px; z-index:1000;">
+            <li sec:authorize="isAnonymous()">
+              <a th:href="@{'/login'}" style="display:block; padding:5px 15px; text-decoration:none; color:#333;">
+                <i class="fas fa-sign-in-alt"></i> Login
+              </a>
+            </li>
+            <li sec:authorize="isAnonymous()">
+              <a th:href="@{'/register'}" style="display:block; padding:5px 15px; text-decoration:none; color:#333;">
+                <i class="fas fa-user-plus"></i> Registrati
+              </a>
+            </li>
+            <li sec:authorize="hasAnyAuthority('ADMIN','REGISTERED')">
+              <a th:href="@{'/logout'}" style="display:block; padding:5px 15px; text-decoration:none; color:#333;">
+                <i class="fas fa-sign-out-alt"></i> Logout
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
 
-		<ul class="menu">
-			<li><a class="navigationButton" th:href="@{'/'}"><i class="fas fa-home"></i> Home</a></li>
-			<li><a class="navigationButton" th:href="@{'/registered/bestRating'}"><i class="fas fa-star"></i> Libri più apprezzati</a></li>
-			<li><a class="navigationButton" th:href="@{'/registered/search'}"><i class="fas fa-search"></i> Ricerca</a></li>
-			<li class="dropdown">
-				<a class="navigationButton" id="menu" th:href="@{'/personalArea'}"><i class="fas fa-user"></i> Area Personale</a>
-				<ul class="dropdown-menu">
-					<li sec:authorize="isAnonymous()"><a th:href="@{'/login'}"><i class="fas fa-sign-in-alt"></i> Login</a></li>
-					<li sec:authorize="isAnonymous()"><a th:href="@{'/register'}"><i class="fas fa-user-plus"></i> Register</a></li>
-					<li sec:authorize="hasAnyAuthority('ADMIN','REGISTERED')"><a th:href="@{'/logout'}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
-				</ul>
-			</li>
-		</ul>
+    <script>
+      const toggleBtn = document.getElementById('dropdownToggle');
+      const menu = document.getElementById('dropdownMenu');
 
-	</header>
+      // Toggle visibilità menu dropdown
+      toggleBtn.addEventListener('click', function(event) {
+        event.stopPropagation(); // Blocca la propagazione per non chiudere subito
+        menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+      });
+
+      // Chiudi dropdown cliccando fuori
+      document.addEventListener('click', function(event) {
+        if (!menu.contains(event.target) && event.target !== toggleBtn) {
+          menu.style.display = 'none';
+        }
+      });
+    </script>
+  </header>
 </body>
-
 </html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+	<title>Libreria</title>
+	<link rel="icon" th:href="@{/library.ico?v=1}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+	<!-- HEADER -->
+	<div th:insert="~{fragments/header :: header}"></div>
+
+	<!-- SECTION -->
+	<section>
+		<h2>
+			<i class="fa-solid fa-book-open"></i>
+			Le Vostre Recensioni
+		</h2>
+
+		<h3>Titolo libro: <span th:text="${book.title}">Titolo</span></h3>
+
+		<div th:if="${reviews.isEmpty()}">Non ci sono recensioni nel sistema</div>
+		<ul>
+			<li th:each="review : ${reviews}">
+				<h3 th:text="${review.title}">Titolo recensione</h3>
+				<p th:text="${review.text}">Testo recensione</p>
+				<div>
+					<!-- Stelle -->
+					<span th:each="i: ${#numbers.sequence(1,5)}">
+						<i th:class="${i <= review.rating} ? 'fas fa-star' : 'far fa-star'"></i>
+					</span>
+				</div>
+
+				<form th:action="@{/admin/delete/book/{bookId}/review/{reviewId}(bookId=${book.id}, reviewId=${review.id}, from='backUrl')}" method="POST" sec:authorize="hasAuthority('ADMIN')">
+					<button type="submit">
+						<i class="fa-solid fa-trash-can"></i> Elimina Recensione
+					</button>
+				</form>
+			</li>
+		</ul>
+
+		<a th:href="${backUrl}">
+			<i class="fa-solid fa-arrow-left"></i>
+			Torna indietro
+		</a>
+	</section>
+
+	<!-- FOOTER -->
+	<div th:insert="~{fragments/footer :: footer}"></div>
+</body>
+
+</html>
