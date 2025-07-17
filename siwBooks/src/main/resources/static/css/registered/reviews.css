@@ -1,0 +1,292 @@
+/* Stili principali per la sezione recensioni */
+.review-section {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 50%, #cbd5e1 100%);
+    border-radius: 20px;
+    box-shadow:
+        0 8px 30px rgba(59, 130, 246, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.review-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 8px;
+    background: linear-gradient(90deg, #3b82f6, #1d4ed8);
+    border-radius: 20px 20px 0 0;
+}
+
+.section-title {
+    color: #1e40af;
+    font-size: 2.2rem;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 3px solid #3b82f6;
+    display: inline-block;
+    position: relative;
+}
+
+.section-title i {
+    margin-right: 12px;
+    color: #3b82f6;
+}
+
+h3 {
+    color: #1e293b;
+    font-size: 1.4rem;
+    margin-top: 0;
+    margin-bottom: 1.8rem;
+    font-weight: 600;
+}
+
+h3 span {
+    color: #2563eb;
+    font-weight: 700;
+    font-style: italic;
+}
+
+/* Messaggio quando non ci sono recensioni */
+.no-review {
+    background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
+    padding: 25px;
+    border-radius: 16px;
+    text-align: center;
+    font-size: 1.2rem;
+    color: #475569;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.1);
+    border-left: 4px solid #3b82f6;
+    margin: 2rem 0;
+}
+
+/* Stile per la lista delle recensioni */
+.review-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    margin-bottom: 3rem;
+}
+
+.review-list li {
+    background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow:
+        0 5px 20px rgba(59, 130, 246, 0.12);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    border-left: 4px solid #3b82f6;
+}
+
+.review-list li:hover {
+    transform: translateY(-5px);
+    box-shadow:
+        0 8px 25px rgba(59, 130, 246, 0.18);
+}
+
+.review-list li::after {
+    content: '\f10d';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    bottom: 15px;
+    right: 20px;
+    color: rgba(59, 130, 246, 0.15);
+    font-size: 3.5rem;
+    z-index: 0;
+    opacity: 0.8;
+}
+
+.review-list h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #1e293b;
+    font-size: 1.4rem;
+    position: relative;
+    z-index: 1;
+    border-bottom: 2px dashed #e2e8f0;
+    padding-bottom: 10px;
+}
+
+.review-text {
+    display: block;
+    line-height: 1.7;
+    position: relative;
+    z-index: 1;
+    color: #475569;
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    border-radius: 16px;
+    border-left: 3px solid #3b82f6;
+}
+
+/* Stile per le stelle di valutazione */
+.review-rating {
+    display: flex;
+    margin-top: 15px;
+    gap: 5px;
+    margin-bottom: 25px;
+}
+
+.review-rating .star {
+    color: #cbd5e1;
+    font-size: 1.3rem;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.review-rating .star.filled {
+    color: #3b82f6;
+    text-shadow: 0 1px 3px rgba(29, 78, 216, 0.3);
+}
+
+/* Animazione per le stelle */
+@keyframes starPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+.review-list li:hover .review-rating .star.filled {
+    animation: starPulse 0.5s ease-in-out;
+    color: #60a5fa;
+}
+
+/* Pulsante Elimina Recensione */
+.review-list form {
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
+    z-index: 1;
+}
+
+.review-list .button {
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow:
+        0 6px 20px rgba(59, 130, 246, 0.3),
+        0 3px 10px rgba(59, 130, 246, 0.2);
+}
+
+.review-list .button:hover {
+    background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+    transform: translateY(-2px);
+    box-shadow:
+        0 12px 30px rgba(59, 130, 246, 0.4),
+        0 6px 20px rgba(59, 130, 246, 0.3);
+}
+
+.review-list .button i {
+    font-size: 1.1rem;
+}
+
+/* Pulsante Torna Indietro */
+a.button {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 25px;
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+    color: #f8fafc;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow:
+        0 6px 20px rgba(59, 130, 246, 0.3),
+        0 3px 10px rgba(59, 130, 246, 0.2);
+    margin-top: 1rem;
+}
+
+a.button:hover {
+    background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+    transform: translateY(-3px);
+    box-shadow:
+        0 12px 30px rgba(59, 130, 246, 0.4),
+        0 6px 20px rgba(59, 130, 246, 0.3);
+}
+
+a.button i {
+    transition: transform 0.3s ease;
+}
+
+a.button:hover i {
+    transform: translateX(-5px);
+}
+
+/* Responsive design */
+@media (max-width: 992px) {
+    .review-section {
+        padding: 1.5rem;
+    }
+    
+    .section-title {
+        font-size: 1.9rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .review-section {
+        margin: 1rem;
+        padding: 1.2rem;
+    }
+    
+    .section-title {
+        font-size: 1.7rem;
+    }
+    
+    .review-list li {
+        padding: 20px;
+    }
+    
+    .review-text {
+        padding: 10px;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .section-title {
+        font-size: 1.5rem;
+    }
+    
+    h3 {
+        font-size: 1.2rem;
+    }
+    
+    .review-list li {
+        padding: 15px;
+    }
+    
+    .review-list .button {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+    }
+    
+    a.button {
+        padding: 10px 20px;
+        font-size: 0.95rem;
+    }
+}

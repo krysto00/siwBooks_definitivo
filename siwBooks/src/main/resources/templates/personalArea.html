@@ -2,27 +2,30 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
-    <title>Home</title>
-    <link rel="icon" th:href="@{/library.ico?v=1}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+	<title>Home</title>
+	<link rel="icon" th:attr="href=@{/library.ico?v=1}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+	<link rel="stylesheet" th:href="@{/css/main-style.css}">
+	<link rel="stylesheet" th:href="@{/css/index.css}">
 </head>
 
 <body>
+	<!-- HEADER importato -->
+	<div th:insert="~{fragments/header :: header}"></div>
 
-    <!-- HEADER -->
-    <div th:insert="~{fragments/header :: header}"></div>
+	<!-- SECTION -->
+	<section>
+		<div>
+			<h1 th:text="${credentials.username}"></h1>
 
-    <section>
-        <h1 th:text="${credentials.username}">Username</h1>
+			<p>Nome: <span th:text="${user.name}"></span></p>
+			<p>Cognome: <span th:text="${user.surname}"></span></p>
+			<p>Email: <span th:text="${user.email}"></span></p>
+		</div>
+	</section>
 
-        <p>Nome: <span th:text="${user.name}">Nome</span></p>
-        <p>Cognome: <span th:text="${user.surname}">Cognome</span></p>
-        <p>Email: <span th:text="${user.email}">Email</span></p>
-    </section>
-
-    <!-- FOOTER -->
-    <div th:insert="~{fragments/footer :: footer}"></div>
-
+	<!-- FOOTER importato -->
+	<div th:insert="~{fragments/footer :: footer}"></div>
 </body>
 
 </html>

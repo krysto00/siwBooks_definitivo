@@ -1,0 +1,140 @@
+
+/*
+-----------------------------------------------HEADER SECTION-------------------------------------------------------------------------
+*/
+.headerNavbar {
+    background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #1d4ed8 100%);
+    color: #f8fafc;
+    padding: 1.5rem 2rem;
+    height: 8vh;
+    display: flex;
+    align-items: center;
+    min-height: 3rem;
+    margin: 15px;
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(59, 130, 246, 0.3);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Navigation menu list */
+.menu {
+    list-style: none;
+    display: flex;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    gap: 8px;
+}
+
+/* Individual menu items */
+.menu li {
+    flex: 1;
+    text-align: center;
+    position: relative;
+}
+
+/* Navigation buttons */
+.navigationButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #f8fafc;
+    text-decoration: none;
+    padding: 18px 24px;
+    width: 100%;
+    border-radius: 16px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(4px);
+}
+
+/* Hover effect for navigation buttons */
+.navigationButton:hover {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(37, 99, 235, 0.4);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Dropdown menu styling */
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 12px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%);
+    min-width: 200px;
+    border-radius: 16px;
+    box-shadow: 0 20px 40px rgba(30, 64, 175, 0.4);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    z-index: 1000;
+    overflow: hidden;
+    transition: opacity 0.3s ease;
+}
+
+/* Dropdown menu list styling */
+.dropdown-menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 8px;
+    width: 100%;
+}
+
+.dropdown-menu li {
+    list-style: none;
+    margin: 0;
+    padding: 4px 0;
+    width: 100%;
+}
+
+.dropdown-menu li a {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    padding: 14px 18px;
+    color: #f1f5f9;
+    text-decoration: none;
+    border-radius: 12px;
+    transition: all 0.2s ease;
+    font-weight: 500;
+    gap: 12px;
+}
+
+/* Dropdown icon styling */
+.dropdown-menu li a i {
+    font-size: 1.1rem;
+    width: 20px;
+    text-align: center;
+}
+
+.dropdown-menu li a:hover {
+    color: #ffffff;
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    transform: translateX(4px);
+}
+
+/* Show dropdown on hover */
+.dropdown:hover .dropdown-menu,
+.dropdown-menu:hover {
+    display: block;
+    animation: fadeInUp 0.3s ease;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}

@@ -2,38 +2,37 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
-    <title>Home</title>
-    <link rel="icon" th:href="@{/library.ico?v=1}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+	<title>Home</title>
+	<link rel="icon" th:href="@{/library.ico?v=1}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+	<link rel="stylesheet" th:href="@{/css/main-style.css}">
+	<link rel="stylesheet" th:href="@{/css/index.css}">
 </head>
 
 <body>
+	<!-- HEADER importato -->
+	<div th:insert="~{fragments/header :: header}"></div>
 
-    <!-- HEADER -->
-    <div th:insert="~{fragments/header :: header}"></div>
+	<!-- SECTION -->
+	<section class="hero">
+		<div class="hero-content">
+			<h1>SiwBooks</h1>
+			<p>La tua libreria digitale sempre a portata di click.</p>
+			<div class="btn-container">
+				<a th:href="@{'/book'}" class="hero-btn">
+					<i class="fa-solid fa-book-open"></i>
+					La Nostra Collezione
+				</a>
+				<a th:href="@{'/author'}" class="hero-btn">
+					<i class="fa-solid fa-pen-nib"></i>
+					I Nostri Autori
+				</a>
+			</div>
+		</div>
+	</section>
 
-    <section>
-        <h1>Ogni libro è un viaggio, ogni autore una voce che ci guida.</h1>
-        <p>Scopri autori, generi e letture consigliate.</p>
-
-        <div>
-            <a th:href="@{/book}">
-                <i class="fa-solid fa-book-open"></i>
-                La Nostra Collezione
-            </a>
-        </div>
-
-        <div>
-            <a th:href="@{/author}">
-                <i class="fa-solid fa-pen-nib"></i>
-                I Nostri Autori
-            </a>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <div th:insert="~{fragments/footer :: footer}"></div>
-
+	<!-- FOOTER importato -->
+	<div th:insert="~{fragments/footer :: footer}"></div>
 </body>
 
 </html>

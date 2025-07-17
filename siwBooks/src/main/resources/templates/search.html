@@ -5,70 +5,100 @@
 	<title>Ricerca</title>
 	<link rel="icon" th:href="@{/library.ico?v=1}">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+	<link rel="stylesheet" th:href="@{/css/main-style.css}">
+	<link rel="stylesheet" th:href="@{/css/search.css}">
 </head>
 
 <body>
-	<!-- HEADER -->
+	<!-- HEADER importato -->
 	<div th:insert="~{fragments/header :: header}"></div>
 
+	<!-- SECTION -->
 	<section>
-		<h1><i class="fas fa-search"></i> Ricerca</h1>
+		<div>
+			<h1><i class="fas fa-search"></i> Ricerca</h1>
 
-		<form action="/registered/search" method="GET">
+			<form action="/registered/search" method="GET" class="search-form">
 
-			<input type="text" name="query" placeholder="Cerca autori o libri" required />
+				<!-- Campo di testo principale -->
+				<input type="text" name="query" placeholder="Cerca autori o libri" class="search-input" />
 
-			<button type="submit">
-				<i class="fas fa-search"></i> Cerca
-			</button>
+				<!-- Bottone di ricerca -->
+				<button type="submit" class="search-button">
+					<i class="fas fa-search"></i> Cerca
+				</button>
 
-			<!-- Checkbox -->
-			<p>
-				<label><input type="checkbox" name="searchInAuthors" /> Autori</label>
-				<label><input type="checkbox" name="searchInBooks" /> Libri</label>
-			</p>
+				<!-- Gruppo checkbox per scegliere dove cercare -->
+				<div class="checkbox-group">
+					<label>
+						<input type="checkbox" name="searchInAuthors" />
+						Autori
+					</label>
 
-			<!-- Rating -->
-			<p>Filtra per valutazione:</p>
-			<p>
-				<label><input type="radio" name="rating" value="5" /> ★★★★★</label><br>
-				<label><input type="radio" name="rating" value="4" /> ★★★★</label><br>
-				<label><input type="radio" name="rating" value="3" /> ★★★</label><br>
-				<label><input type="radio" name="rating" value="2" /> ★★</label><br>
-				<label><input type="radio" name="rating" value="1" /> ★</label>
-			</p>
-		</form>
+					<label>
+						<input type="checkbox" name="searchInBooks" />
+						Libri
+					</label>
+				</div>
+
+				<!-- Filtro stelle (rating) -->
+				<div class="rating-filter">
+					<label>Filtra per valutazione:</label>
+					<div class="stars">
+
+						<input type="radio" id="star5" name="rating" value="5" />
+						<label for="star5" title="5 stelle"><i class="fa-solid fa-star"></i></label>
+
+						<input type="radio" id="star4" name="rating" value="4" />
+						<label for="star4" title="4 stelle"><i class="fa-solid fa-star"></i></label>
+
+						<input type="radio" id="star3" name="rating" value="3" />
+						<label for="star3" title="3 stelle"><i class="fa-solid fa-star"></i></label>
+
+						<input type="radio" id="star2" name="rating" value="2" />
+						<label for="star2" title="2 stelle"><i class="fa-solid fa-star"></i></label>
+
+						<input type="radio" id="star1" name="rating" value="1" />
+						<label for="star1" title="1 stella"><i class="fa-solid fa-star"></i></label>
+
+					</div>
+				</div>
+			</form>
+		</div>
 
 		<hr>
 
-		<!-- Risultati Autori -->
-		<div th:if="${authors != null}">
-			<h2><i class="fa-solid fa-user-pen"></i> Autori</h2>
-			<ul>
-				<li th:each="author : ${authors}">
-					<a th:href="@{'/author/' + ${author.id}} + '?from=/registered/search'">
-						<span th:text="${author.name} + ' ' + ${author.surname}">Nome Cognome</span>
-						<span th:text="' - ' + ${author.nationality}">Nazionalità</span>
-					</a>
-				</li>
-			</ul>
-		</div>
+		<!-- Risultati -->
+		<div class="results-container">
+			<!-- Colonna Autori -->
+			<div class="column" th:if="${authors != null}">
+				<h2><i class="fa-solid fa-user-pen"></i> Autori</h2>
+				<ul class="author-list">
+					<li th:each="author : ${authors}">
+						<a th:href="@{'/author/' + ${author.id}} + '?from=/registered/search'">
+							<span th:text="${author.name} + ' ' + ${author.surname}">Nome Cognome</span>
+							<span th:text="' - ' + ${author.nationality}">Nazionalità</span>
+						</a>
+					</li>
+				</ul>
+			</div>
 
-		<!-- Risultati Libri -->
-		<div th:if="${books != null}">
-			<h2><i class="fa-solid fa-book"></i> Libri</h2>
-			<ul>
-				<li th:each="book : ${books}">
-					<a th:href="@{'/book/' + ${book.id}} + '?from=/registered/search'">
-						<span th:text="${book.title}">Titolo</span>
-						<span th:text="' - ' + ${book.yearOfPublication}">Anno</span>
-					</a>
-				</li>
-			</ul>
+			<!-- Colonna Libri -->
+			<div class="column" th:if="${books != null}">
+				<h2><i class="fa-solid fa-book"></i> Libri</h2>
+				<ul class="book-list">
+					<li th:each="book : ${books}">
+						<a th:href="@{'/book/' + ${book.id}} + '?from=/registered/search'">
+							<span th:text="${book.title}">Titolo</span>
+							<span class="year" th:text="' - ' + ${book.yearOfPublication}">Anno</span>
+						</a>
+					</li>
+				</ul>
+			</div>
 		</div>
 	</section>
 
-	<!-- FOOTER -->
+	<!-- FOOTER importato -->
 	<div th:insert="~{fragments/footer :: footer}"></div>
 </body>
 

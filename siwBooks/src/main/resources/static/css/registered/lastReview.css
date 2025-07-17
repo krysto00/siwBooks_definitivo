@@ -1,0 +1,235 @@
+/* Impostazioni generali del contenitore */
+.lastReviewNavbar {
+  position: relative; /* necessario per posizionare il bottone in modo assoluto */
+  padding: 1rem;
+  background: #f8fafc; /* sfondo chiaro e neutro */
+}
+
+/* Stile del titolo */
+.lastReviewNavbar h2 {
+  color: #1e293b; /* blu scuro/grigio */
+  font-size: 1.8rem;
+  margin-top: 0;
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 3px solid #3b82f6; /* blu acceso */
+  display: inline-block;
+  position: relative;
+}
+
+.lastReviewNavbar h2::after {
+  content: '\f075';
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+  position: absolute;
+  right: -35px;
+  top: 5px;
+  color: #3b82f6;
+  font-size: 1.5rem;
+  filter: drop-shadow(0 2px 3px rgba(59, 130, 246, 0.4));
+}
+
+/* Stile e posizionamento del bottone "Tutte le recensioni" */
+.reviews-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #3b82f6;
+  color: #fff;
+  font-size: 1rem;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  transition: background-color 0.3s;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.5);
+}
+
+.reviews-button i {
+  margin-right: 5px;
+}
+
+.reviews-button:hover {
+  background-color: #1e40af;
+  box-shadow: 0 6px 20px rgba(30, 64, 175, 0.7);
+}
+
+/* Contenitore scroll per ultime recensioni */
+.last-review {
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+
+/* Stile scrollbar personalizzato */
+.last-review::-webkit-scrollbar {
+  width: 8px;
+}
+
+.last-review::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 8px;
+}
+
+.last-review::-webkit-scrollbar-thumb {
+  background: #3b82f6;
+  border-radius: 8px;
+}
+
+.last-review::-webkit-scrollbar-thumb:hover {
+  background: #1e40af;
+}
+
+/* Stile per il messaggio "Non ci sono recensioni..." */
+.no-review {
+  background-color: #dbeafe;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 1.1rem;
+  color: #1e40af;
+  box-shadow: 0 4px 10px rgba(59, 130, 246, 0.1);
+  border-left: 4px solid #3b82f6;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+/* Stile della lista delle recensioni */
+.review-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow-y: auto;
+  max-height: calc(100% - 60px);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.review-list li {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 5px 15px rgba(59, 130, 246, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  border-left: 4px solid #3b82f6;
+}
+
+.review-list li:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(59, 130, 246, 0.15);
+}
+
+.review-list li::after {
+  content: '\f10d';
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+  position: absolute;
+  bottom: 10px;
+  right: 15px;
+  color: rgba(59, 130, 246, 0.1);
+  font-size: 2.5rem;
+  z-index: 0;
+}
+
+.review-list h3 {
+  margin-top: 0;
+  margin-bottom: 12px;
+  color: #1e293b;
+  font-size: 1.3rem;
+  position: relative;
+  z-index: 1;
+}
+
+.review-list span {
+  display: block;
+  line-height: 1.6;
+  position: relative;
+  z-index: 1;
+  color: #475569;
+}
+
+/* Stile delle stelle di valutazione */
+.review-rating {
+  display: flex;
+  margin-top: 15px;
+  gap: 3px;
+}
+
+.review-rating .star {
+  color: #cbd5e1; /* Stelle vuote: grigio chiaro/blu pallido */
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.review-rating .star.filled {
+  color: #3b82f6; /* Stelle piene: blu acceso */
+  text-shadow: 0 1px 3px rgba(59, 130, 246, 0.3);
+}
+
+/* Effetto hover sulle stelle */
+.review-list li:hover .review-rating .star.filled {
+  color: #60a5fa; /* blu chiaro più brillante */
+  transform: scale(1.1);
+  text-shadow: 0 2px 5px rgba(59, 130, 246, 0.4);
+}
+
+/* Animazione per le stelle */
+@keyframes starPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.review-list li:hover .review-rating .star.filled {
+  animation: starPulse 0.5s ease-in-out;
+}
+
+/* Responsive design */
+@media (max-width: 992px) {
+  .reviews-section {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .reviews-section > div {
+    max-height: none;
+  }
+
+  .review-list {
+    max-height: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .reviews-section {
+    padding: 20px 1rem;
+  }
+
+  .reviews-section > div {
+    padding: 25px;
+  }
+
+  .lastReviewNavbar h2 {
+    font-size: 1.6rem;
+  }
+
+  .lastReviewNavbar h2::after {
+    font-size: 1.2rem;
+    right: -30px;
+  }
+
+  .review-list li {
+    padding: 15px;
+  }
+}
