@@ -5,8 +5,9 @@
 	<title>Home</title>
 	<link rel="icon" th:attr="href=@{/library.ico?v=1}">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-	<link rel="stylesheet" th:href="@{/css/main-style.css}">
 	<link rel="stylesheet" th:href="@{/css/index.css}">
+	<link rel="stylesheet" th:href="@{/css/main-style.css}">
+
 </head>
 
 <body>
@@ -14,18 +15,22 @@
 	<div th:insert="~{fragments/header :: header}"></div>
 
 	<!-- SECTION -->
-	<section>
-		<div>
-			<h1 th:text="${credentials.username}"></h1>
+	<section class="personal-info">
+	    <div>
+	        <h1 th:text="${credentials.username}"></h1>
 
-			<p>Nome: <span th:text="${user.name}"></span></p>
-			<p>Cognome: <span th:text="${user.surname}"></span></p>
-			<p>Email: <span th:text="${user.email}"></span></p>
-		</div>
+	        <p>Nome: <span th:text="${user.name}"></span></p>
+	        <p>Cognome: <span th:text="${user.surname}"></span></p>
+	        <p>Email: <span th:text="${user.email}"></span></p>
+	    </div>
 	</section>
+
+
 
 	<!-- FOOTER importato -->
 	<div th:insert="~{fragments/footer :: footer}"></div>
 </body>
+
+
 
 </html>

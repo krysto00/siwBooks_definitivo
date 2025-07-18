@@ -102,13 +102,17 @@ a:hover {
 }
 
 /* Typography */
-h1,
-p {
+.hero h1, .hero p {
     color: #f0f9ff;
-    font-style: normal;
-    font-weight: 300;
-    letter-spacing: 0.5px;
+    ...
 }
+
+/* Per tutto il resto */
+h1, p {
+    color: #1e293b;
+    ...
+}
+
 
 /* Hero section */
 .hero {
