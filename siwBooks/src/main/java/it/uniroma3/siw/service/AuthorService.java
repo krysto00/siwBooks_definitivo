@@ -19,7 +19,6 @@ public class AuthorService {
 	
 	@Autowired private AuthorRepository authorRepository;
 	public Iterable<Author> getAllAuthors() {
-		//return this.authorRepository.findAll();
 		return this.authorRepository.findAllByOrderBySurnameAscNameAsc();
 	}
 

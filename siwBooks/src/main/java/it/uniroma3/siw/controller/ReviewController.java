@@ -31,7 +31,7 @@ public class ReviewController {
 	public String addReview(
 			@Valid @ModelAttribute("newReview") Review review,
 			BindingResult bindingResult,
-			@RequestParam("bookId") Long bookId,  // Ricevi l'ID del libro
+			@RequestParam("bookId") Long bookId,
 			Model model) {
 
 		if(!this.securityUtils.isAuthenticated()) {
@@ -43,11 +43,10 @@ public class ReviewController {
 		}
 
 		if (bindingResult.hasErrors()) {
-			model.addAttribute("book", bookService.getBookbyId(bookId)); // Ricarica il libro
+			model.addAttribute("book", bookService.getBookbyId(bookId));
 			return "book-details";
 		}
 
-		// Recupera il libro dal database
 		Book book = bookService.getBookbyId(bookId);
 		User user = this.securityUtils.getCurrentCredentials(credentialsService).getUser();
 

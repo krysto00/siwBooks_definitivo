@@ -16,7 +16,6 @@ public interface AuthorRepository extends CrudRepository<Author, Long> {
 
 	List<Author> findByNameContainingIgnoreCaseOrSurnameContainingIgnoreCase(String name, String surname);
 	
-	// Ordina per cognome (ASC) e poi nome (ASC)
     List<Author> findAllByOrderBySurnameAscNameAsc();
 
     @Query("SELECT b FROM Author a JOIN a.books b WHERE a.id = :authorId")

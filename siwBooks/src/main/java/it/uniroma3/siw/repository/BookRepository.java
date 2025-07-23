@@ -26,7 +26,6 @@ public interface BookRepository extends CrudRepository<Book, Long>{
 
 	@Query("SELECT b FROM Book b JOIN b.reviews r GROUP BY b HAVING ROUND(AVG(r.rating)) = :exactRating")
 	List<Book> findBooksByRoundedRating(@Param("exactRating") int exactRating);
-	// Ordina per titolo (ASC)
 	List<Book> findAllByOrderByTitleAsc();
 	
 	@Query("SELECT b FROM Book b WHERE b NOT IN :books")

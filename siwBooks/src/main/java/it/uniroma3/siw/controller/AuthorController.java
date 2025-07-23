@@ -74,11 +74,9 @@ public class AuthorController {
 			Model model,
 			RedirectAttributes redirectAttributes) {
 
-		// Gestione errori di validazione
+
 		if (bindingResult.hasErrors()) {
-			// Ricarica i dati necessari per il form
-			
-			//se date non sono state caricate correttamente
+
 			Author originalAuthor = authorService.getAuthorById(id);
 	        if (author.getDateOfBirth() == null) {
 	            author.setDateOfBirth(originalAuthor.getDateOfBirth());
@@ -87,14 +85,14 @@ public class AuthorController {
 	            author.setDateOfDeath(originalAuthor.getDateOfDeath());
 	        }
 			
-	     // Ricarica i dati necessari per il form
+
 	        model.addAttribute("photo", originalAuthor.getPhoto());
 	        
 	        Iterable<Book> authorBooks = authorService.findBooksByAuthorId(id);
 	        model.addAttribute("authorBooks", authorBooks);
 	        model.addAttribute("otherBooks", bookService.findAllExcludingBooks((List<Book>) authorBooks));
 	        
-	        // Mantieni lo stato delle checkbox
+
 	        model.addAttribute("selectedBookIds", selectedBookIds);
 	        model.addAttribute("unSelectedBooksIds", unSelectedBookIds);
 
@@ -102,15 +100,12 @@ public class AuthorController {
 		}
 
 		try {
-			// Recupera l'autore esistente
 			Author existingAuthor = authorService.getAuthorById(id);
 
-			// Aggiorna i campi dell'autore
 	        existingAuthor.setName(author.getName());
 	        existingAuthor.setSurname(author.getSurname());
 	        existingAuthor.setNationality(author.getNationality());
 	        
-	        // Usa le date dall'oggetto solo se sono state modificate
 	        if (author.getDateOfBirth() != null) {
 	            existingAuthor.setDateOfBirth(author.getDateOfBirth());
 	        }
@@ -118,29 +113,23 @@ public class AuthorController {
 	            existingAuthor.setDateOfDeath(author.getDateOfDeath());
 	        }
 
-			// Gestione foto
 			if (photoFile != null && !photoFile.isEmpty()) {
-				// Elimina la vecchia foto se esiste
 				if (existingAuthor.getPhoto() != null) {
 					imageService.deleteImage(existingAuthor.getPhoto().getId());
 				}
 
-				// Salva la nuova foto
 				Image newPhoto = imageService.save(photoFile);
 				existingAuthor.setPhoto(newPhoto);
 			}
 
-			// Gestione libri
 			Set<Book> updatedBooks = this.authorService.getBooksByAuthorId(id);
 
-			// Rimuovi libri deselezionati
 			if (unSelectedBookIds != null && !unSelectedBookIds.isEmpty()) {
 				Set<Book> booksToRemove = bookService.getBooksByIds(unSelectedBookIds);
 				updatedBooks.removeAll(booksToRemove);
 
 			}
 
-			// Aggiungi libri selezionati
 			if (selectedBookIds != null && !selectedBookIds.isEmpty()) {
 				Set<Book> booksToAdd = bookService.getBooksByIds(selectedBookIds);
 				updatedBooks.addAll(booksToAdd);
@@ -149,7 +138,6 @@ public class AuthorController {
 
 			existingAuthor.setBooks(updatedBooks);
 
-			// Salva le modifiche
 			authorService.save(existingAuthor);
 
 			redirectAttributes.addFlashAttribute("successMessage", "Autore aggiornato con successo!");
@@ -161,9 +149,6 @@ public class AuthorController {
 		}
 	}
 
-	/*
-			ADD AUTHOR
-	 */
 	@GetMapping("/admin/formAddAuthor")
 	public String formAddAuthor(Model model) {
 		model.addAttribute("books", this.bookService.getAllBooks());
@@ -182,13 +167,11 @@ public class AuthorController {
 			Model model) {
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("books", bookService.getAllBooks());
-			// Mantieni gli autori selezionati in caso di errori
 			model.addAttribute("selectedBookIds", selectedBookIds);
 			return "admin/formAddAuthor.html";
 		}
 
 		try {
-			// Gestione immagine solo se presente
 			if (!photoFile.isEmpty()) {
 				Image photoImage = new Image();
 				photoImage.setName(photoFile.getOriginalFilename());
@@ -202,12 +185,10 @@ public class AuthorController {
 			return "admin/formAddAuthor.html";
 		}
 
-		// Aggiunta libri
 		if (selectedBookIds != null && !selectedBookIds.isEmpty()) {
 			Set<Book> selectedBooks = this.bookService.getBooksByIds(selectedBookIds);
 			newAuthor.setBooks(selectedBooks);
 
-			// Aggiorna bidirezionalmente i libri
 			selectedBooks.forEach(book -> book.getAuthors().add(newAuthor));
 		}
 

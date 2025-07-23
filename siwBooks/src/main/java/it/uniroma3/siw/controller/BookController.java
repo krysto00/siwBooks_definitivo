@@ -89,7 +89,6 @@ public class BookController {
 		boolean inBooks = (searchInBooks != null);
 		boolean byRating = (rating != null);
 
-		// Se nessuna checkbox selezionata, cerca in entrambi
 		if (!inAuthors && !inBooks) {
 			inAuthors = true;
 			inBooks = true;
@@ -153,9 +152,7 @@ public class BookController {
 			Model model,
 			RedirectAttributes redirectAttributes) {
 
-		// Se ci sono errori di validazione, ritorna al form
 		if (bindingResult.hasErrors()) {
-			// Ricarica i dati necessari per il form
 			Iterable<Author> bookAuthors = this.bookService.findAuthorsByBookId(id);
 			model.addAttribute("bookAuthors", bookAuthors);
 			model.addAttribute("otherAuthors", this.authorService.findAllExcludingAuthors((List<Author>) bookAuthors));
@@ -166,35 +163,28 @@ public class BookController {
 		}
 
 		try {
-			// Recupera il libro esistente dal database
 			Book existingBook = this.bookService.getBookbyId(id);
 
-			// Aggiorna i campi del libro
 			existingBook.setTitle(book.getTitle());
 			existingBook.setYearOfPublication(book.getYearOfPublication());
 
-			// Gestione della copertina
+
 			if (coverFile != null && !coverFile.isEmpty()) {
-				// Se c'è una nuova copertina, gestiscila
-				// Elimina la vecchia copertina se esiste
 				if (existingBook.getCover() != null) {
 					this.imageService.deleteImage(existingBook.getCover().getId());
 				}
 
-				// Salva la nuova copertina
 				Image newCover = this.imageService.save(coverFile);
 				existingBook.setCover(newCover);
 			}
 
 			Set<Author> updateAuthor = this.bookService.getAuthorsByBookId(id);
 
-			// Gestione autori da rimuovere
 			if (unSelectedAuthorIds != null && !unSelectedAuthorIds.isEmpty()) {
 				Set<Author> authorsToRemove = this.authorService.getAuthorsByIds(unSelectedAuthorIds);
 				updateAuthor.removeAll(authorsToRemove);
 			}
 
-			// Aggiunta autori
 			if (selectedAuthorIds != null && !selectedAuthorIds.isEmpty()) {
 				Set<Author> authorsToAdd = this.authorService.getAuthorsByIds(selectedAuthorIds);
 				updateAuthor.addAll(authorsToAdd);
@@ -202,7 +192,6 @@ public class BookController {
 
 			existingBook.setAuthors(updateAuthor);
 
-			// Salva il libro aggiornato
 			this.bookService.save(existingBook);
 
 			redirectAttributes.addFlashAttribute("successMessage", "Libro aggiornato con successo!");
@@ -225,7 +214,7 @@ public class BookController {
 	public String formAddBook(Model model) {
 		model.addAttribute("authors", this.authorService.getAllAuthors());
 		model.addAttribute("newBook", new Book());
-		model.addAttribute("selectedAuthorIds", null); // Inizializza a null per evitare errori
+		model.addAttribute("selectedAuthorIds", null);
 		return "admin/formAddBook.html";
 	}
 	
@@ -258,12 +247,10 @@ public class BookController {
 			return "admin/formAddBook.html";
 		}
 
-		// Aggiunta autori
 		if (selectedAuthorIds != null && !selectedAuthorIds.isEmpty()) {
 			Set<Author> selectedAuthors = authorService.getAuthorsByIds(selectedAuthorIds);
 			newBook.setAuthors(selectedAuthors);
 
-			// Aggiorna bidirezionalmente gli autori
 			selectedAuthors.forEach(author -> author.getBooks().add(newBook));
 		}
 
